@@ -1,3 +1,15 @@
+/*******************************************************************************
+  Title          : tree_collection.h
+  Author         : Thomas Westfall
+  Created on     : March 2, 2019
+  Description    : The interface file for the TreeCollection class
+  Purpose        : To provide a minimal interface to be used to interact with 
+                   the TreeCollection objects.
+  Usage          : 
+  Build with     : No building
+  Modifications  : 
+ 
+*******************************************************************************/
 #ifndef Tree_Collection_H
 #define Tree_Collection_H
 

@@ -1,2 +1,5 @@
 3/2/19 
 Implemented stubs of tree and tree_collection. Makefile builds the executable.
+
+3/3/19
+Implemented tree, started work on tree_species.

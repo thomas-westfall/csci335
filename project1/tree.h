@@ -40,6 +40,7 @@ Data Dictionary for Input File:
 
 
 #include <string>
+#include <algorithm> //for case insensitive comparisons
 #include <iostream>
 using namespace std;
 
@@ -137,8 +138,7 @@ public:
     int zip_code() const;
     int diameter() const;
     void get_position(double & latitude,double & longitude) const;
-
-
+    
 private:
     int    tree_id;    // unique id that  identifies the tree
     int    tree_dbh;   // specifies tree diameter
