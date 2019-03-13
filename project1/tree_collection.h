@@ -13,11 +13,26 @@
 #ifndef Tree_Collection_H
 #define Tree_Collection_H
 
+#include "tree.h"
+#include "tree_species.h"
+#include "AvlTree.h"
 #include "__tree_collection.h"
+
+
 class TreeCollection : public __TreeCollection{
+ private:
+  string boroughs [5];
+  int sizet;
+  TreeSpecies treespeciesc;
+  AvlTree<Tree> avltree;
+  AvlTree<Tree> tempavl;
  public:
-  TreeCollection();
+  //default constructor
+ TreeCollection();
+ 
+ //destructor
   ~TreeCollection();
+  
   int total_tree_count();
   int count_of_tree_species ( const string & species_name );
   int count_of_tree_species_in_boro ( const string & species_name,
@@ -25,7 +40,7 @@ class TreeCollection : public __TreeCollection{
   int get_counts_of_trees_by_boro ( const string & species_name,
                                        boro  tree_count[5] );
   int count_of_trees_in_boro( const string & boro_name );
-  int add_tree( Tree & new_tree);
+  int add_tree( Tree& new_tree);
   void print_all_species(ostream & out) const;
   void print(ostream & out ) const;
   list<string> get_matching_species(

@@ -1,5 +1,6 @@
-    #include "AvlTree.h"
-    #include <iostream.h>
+#include <iostream>
+#include "tree.h"
+#include "AvlTree.h"
 
     /**
      * Implements an unbalanced Avl search tree.
@@ -31,7 +32,7 @@
         template <class Comparable>
         AvlTree<Comparable>::~AvlTree( )
         {
-            makeEmpty( );
+	  makeEmpty( );
         }
 
         /**
@@ -49,8 +50,7 @@
         template <class Comparable>
         void AvlTree<Comparable>::remove( const Comparable & x )
         {
-            cout << "Sorry, remove unimplemented; " << x <<
-                 " still present" << endl;
+	  remove(x, root);
         }
 
         /**
@@ -155,24 +155,92 @@
             {
                 insert( x, t->left );
                 if( height( t->left ) - height( t->right ) == 2 )
+		  {
                     if( x < t->left->element )
                         rotateWithLeftChild( t );
                     else
                         doubleWithLeftChild( t );
+		  }
             }
             else if( t->element < x )
             {
                 insert( x, t->right );
-                if( height( t->right ) - height( t->left ) == 2 )
+                if( height( t->right ) - height( t->left ) == 2 ){
                     if( t->right->element < x )
                         rotateWithRightChild( t );
                     else
                         doubleWithRightChild( t );
+		}
             }
             else
                 ;  // Duplicate; do nothing
             t->height = max( height( t->left ), height( t->right ) ) + 1;
-        }
+	}
+
+	//Implementation written by Stewart Weiss (Chapter 4, 1.3.1)
+	template <class Comparable>
+	void AvlTree<Comparable>::remove ( const Comparable & x , AvlNode < Comparable > * & t) const{
+	  if ( t == NULL )// can 't delete from an empty tree
+	    return ;
+
+	  if ( x < t -> element ) {
+	    // delete from the left subtree
+	    remove ( x , t -> left ) ;
+	    // check if the heights of the subtrees are now too different
+	    if ( height(t -> right ) - height(t -> left ) == 2 ){
+	      // unbalanced
+	      // right subtree too tall relative to left
+	      // Which rotation to use depends on whether the left subtree
+	      //of the
+	      // right subtree is larger , or the right of the right is
+	      //larger .
+	      // If the right is larger we MUST use RR
+	      if ( height (( t -> right ) -> right ) >= height (( t -> right ) -> left ) )
+		rotateWithRightChild( t ) ;
+	      else
+		doubleWithRightChild( t ) ;
+	    }
+	  }
+	  
+	  else if ( t -> element < x ) {
+	    // delete from the right subtree
+	    remove ( x , t -> right ) ;
+	    if ( height(t -> left ) - height(t -> right ) == 2 ){
+	      // unbalanced
+	      // left subtree too tall
+	      if ( height (( t -> left ) -> left ) >=
+		   height (( t -> left ) -> right ) )
+		rotateWithLeftChild( t ) ;
+	      else
+		doubleWithLeftChild( t ) ;
+	    }
+	  }
+	  else { // delete this node
+	    if (( t -> left != NULL ) &&
+		(t -> right != NULL ) ) { // two non - empty
+	      //subtrees
+	      t -> element = findMin (t -> right ) -> element ;
+	      remove (t -> element , t -> right ) ;
+	      if ( height(t -> left ) - height(t -> right ) == 2 ){
+		//unbalanced
+		// left subtree too tall
+		if ( height (( t -> left ) -> left ) >= height (( t -> left ) -> right ) )
+		  rotateWithLeftChild ( t ) ;
+		else
+		  doubleWithRightChild ( t ) ;
+	      }
+	    }
+	    else {
+	      AvlNode < Comparable >* OldNode = t ;
+	      t = (t -> left != NULL ) ? t -> left : t -> right ;
+	      delete OldNode ;
+	    }
+	  }
+	  if ( NULL != t )
+	    t -> height = max ( height(t -> left ) , height(t -> right ) ) + 1;
+	}
+
+
 
         /**
          * Internal method to find the smallest item in a subtree t.
@@ -279,7 +347,7 @@
          * For AVL trees, this is a single rotation for case 1.
          * Update heights, then set new root.
          */
-        template <class Comparable>
+        template <class Comparable> //LL rotation
         void AvlTree<Comparable>::rotateWithLeftChild( AvlNode<Comparable> * & k2 ) const
         {
             AvlNode<Comparable> *k1 = k2->left;
@@ -295,7 +363,7 @@
          * For AVL trees, this is a single rotation for case 4.
          * Update heights, then set new root.
          */
-        template <class Comparable>
+        template <class Comparable> //RR rotation
         void AvlTree<Comparable>::rotateWithRightChild( AvlNode<Comparable> * & k1 ) const
         {
             AvlNode<Comparable> *k2 = k1->right;
@@ -312,7 +380,7 @@
          * For AVL trees, this is a double rotation for case 2.
          * Update heights, then set new root.
          */
-        template <class Comparable>
+        template <class Comparable> //LR rotation
         void AvlTree<Comparable>::doubleWithLeftChild( AvlNode<Comparable> * & k3 ) const
         {
             rotateWithRightChild( k3->left );
@@ -325,7 +393,7 @@
          * For AVL trees, this is a double rotation for case 3.
          * Update heights, then set new root.
          */
-        template <class Comparable>
+        template <class Comparable> //RL rotation
         void AvlTree<Comparable>::doubleWithRightChild( AvlNode<Comparable> * & k1 ) const
         {
             rotateWithLeftChild( k1->right );
@@ -346,3 +414,5 @@
                 printTree( t->right );
             }
         }
+
+template class AvlTree<Tree>;

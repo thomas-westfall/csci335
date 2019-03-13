@@ -1,5 +1,45 @@
+Usage: 
+make
+./project1 input_file command_file
+
+
+Log:
 3/2/19 
 Implemented stubs of tree and tree_collection. Makefile builds the executable.
 
 3/3/19
 Implemented tree, started work on tree_species.
+
+3/5/19
+Implemented Tree_Species. Going for completion over performance. Matching is extremely inefficient, will try to improve if I have time later.
+
+3/6/19
+Started to implement Tree_Collection. One of the major frustrations is that I'm getting memory/pointer errors when I construct Tree_Species, avltree, and a default Tree. Will start debugging.
+
+3/8/19
+Implemented some of Tree_collections methods, though I tested them with my own main file since using the given main.o gives me seg faults / pointer errors.
+ 
+3/11/19
+Finished implementing Tree_Collection. Going for completion over performance. I constructed a copy of TreeCollection's avtree and removed the minimum from it to iterate. Not efficient, but I may switch to using private counters incremented at addition if I manage to debug Tree_collection completely.
+
+3/12/19
+Could not figure out why the memory error occurs. Spent the rest of the time documenting my code and testing/debugging the methods by seeing if the results matched goldversion.
+
+
+Issues:
+The main issue with the code is that the program hits a memory error when destructing the TreeCollection object. The exact error differs depending on the entered commandfile. I spent a significant amount of time trying to debug this, but could not figure out why this was happening. Fortunately, this bug occurs at the end of main.o (treecollection destructor), and does not seem to alter the results of the class methods, as far as my testing could tell. 
+
+The TreeCollection methods get_all_in_zipcode and get_all_near were working as intended, but the corresponding command file commands (listall_inzip and list_near) do not give the correct frequencies without duplicates. The frequencies for found species are stuck at one when duplicates aren't allowed. I did comment out the code to check (and ignore) a duplicate to show I do understand the  Rather than I decided that correct output was more important, and commented out the if statement that checked if the current species was already in the list.
+
+The treespecies method void print_all_species(ostream & out) prints out the species in lexicographic order. My understanding of exicographic order is that uppercase precedes lowercase. The project guidelines did not state whether print_all-species should be case insensitive or not, so I assumed the latter. Goldversion prints them out in lowercase, alphabetically, however. I decided to stick with lexicographic order (and subsequently not modify the species names) to follow the guidelines (which do state that it should be in lexicographic order)
+
+The only counter incremented in the addtree method for TreeCollection is the total number of trees. Thus, most of the TreeCollection methods use tree traversal. I traverse the tree by first creating a copy of the avl tree, then removing the minimum tree element from the copied avl tree to iterate. This is terribly inefficient, but I did not have time to implement more counters to be incremented by add_tree.
+
+The empty tree required to construct the private avltree for a TreeCollection object had to be put right before the TreeCollection's default constructor. Putting it in the TreeCollection's constructor gave me runtime errors. This may be related to the destructor memory error, though I am unsure if this is actually the case.
+
+
+Notes:
+
+The project took around 30 hours to complete. Much of that time was spent trying to figure out the memory bug described above (which came out fruitless). This left me with little time to actually implement the methods of the classes, which resulted in me using and implementing inefficent data structures/algorithms for the methods, particularly treespecies' matching method. I plan to debug my code more efficiently in the next project so I can have more time to implement the methods. 
+ 
+The AvlTree class is not mine. AvlTree.cpp, AvlTree.h, and  method except remove was given to us, and I got the remove algorithm from the Course Website's Chapter 4: Trees, Part 2.

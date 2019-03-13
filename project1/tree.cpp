@@ -1,5 +1,6 @@
 #include "tree.h"
 
+
 //helper function used by Tree::Tree(const string & str)
 //returns true if the string is an integer, false otherwise
 bool isint(string s){
@@ -118,6 +119,7 @@ Tree::Tree(int id, int diam,  string stat, string hlth, string name,
 }
 
 ostream& operator<< (ostream & os, const Tree & t){
+  //store latitude and longitude values from t first
   double latitude, longitude;
   t.get_position(latitude,longitude);
   return os <<t.common_name()<<','<<t.id()<<','<<t.diameter()<<','<<
@@ -126,23 +128,29 @@ ostream& operator<< (ostream & os, const Tree & t){
 }
 
 bool operator==(const Tree & t1, const Tree & t2){
+  //the two trees must have the same common name and id
   return samename(t1,t2) and t1.id() == t2.id();
 }
 
 bool operator<(const Tree & t1, const Tree & t2){
+  //compare common names first, then ids
   if (islessname(t1,t2))
     return true;
-  if (t1.id() < t2.id())
+  //compare ids now
+  if (samename(t1,t2) and t1.id() < t2.id())
     return true;
   return false;
 }
 
 bool samename(const Tree & t1, const Tree & t2){
-  return tolowers(t1.common_name()) == tolowers(t2.common_name());
+  //convert copies of the common names to lowercase, then compare
+  return(tolowers(t1.common_name()).compare(tolowers(t2.common_name())) == 0);
 }
 
 bool islessname(const Tree & t1, const Tree & t2){
-  return tolowers(t1.common_name()) < tolowers(t2.common_name());
+  //convert copies of the common names to lowercase, then compare
+  return(tolowers(t1.common_name()).compare(tolowers(t2.common_name())) < 0);
+    
 }
 
 string Tree::common_name() const{

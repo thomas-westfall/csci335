@@ -31,9 +31,9 @@ Data Dictionary for Input File:
                                leading zeroes
  30         string boroname;   valid values: ”Manhattan”, ”Bronx”, ”Brooklyn”, 
                                ”Queens”, ”Staten Island”
- 40         double latitude     spatial coordinate specifying position in 
+ 38         double latitude     spatial coordinate specifying position in 
                                New York State state plane coordinates
- 41         double longitude     spatial coordinate specifying position in 
+ 39         double longitude     spatial coordinate specifying position in 
                                New York State state plane coordinates
 
  ******************************************************************************/

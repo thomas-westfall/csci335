@@ -20,8 +20,7 @@
             friend class AvlTree<Comparable>;
         };
 
-        #include "dsexceptions.h"
-        #include <iostream.h>       // For NULL
+        #include <iostream>       // For NULL
 
         // AvlTree class
         //
@@ -58,12 +57,13 @@
             const AvlTree & operator=( const AvlTree & rhs );
 
           private:
-            AvlNode<Comparable> *root;
             const Comparable ITEM_NOT_FOUND;
+            AvlNode<Comparable> *root;
 
-            const Comparable & elementAt( AvlNode<Comparable> *t ) const;
+	    const Comparable & elementAt( AvlNode<Comparable> *t ) const;
 
             void insert( const Comparable & x, AvlNode<Comparable> * & t ) const;
+	    void remove( const Comparable & x, AvlNode<Comparable> * & t ) const;
             AvlNode<Comparable> * findMin( AvlNode<Comparable> *t ) const;
             AvlNode<Comparable> * findMax( AvlNode<Comparable> *t ) const;
             AvlNode<Comparable> * find( const Comparable & x, AvlNode<Comparable> *t ) const;
@@ -80,5 +80,4 @@
             void doubleWithRightChild( AvlNode<Comparable> * & k1 ) const;
         };
 
-        #include "AvlTree.cpp"
         #endif

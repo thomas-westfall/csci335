@@ -10,20 +10,36 @@
   Modifications  : 
  
 *******************************************************************************/
-#ifndef Tree_Species_H
-#define Tree_species_h
 
+#ifndef Tree_Species_H_
+#define Tree_Species_H_
+
+#include <vector>
 #include "__tree_species.h"
-class TreeSpecies : public __TreeSpecies{
- public:
+
+class TreeSpecies : public __TreeSpecies
+{
+private:
+  vector<string> speciesv;
+  int sizev;
+
+public:
   TreeSpecies();
   ~TreeSpecies();
+  string getspecies(int i);
   void print_all_species(ostream & out) const;
   int number_of_species() const;
   int add_species( const string & species);
   list<string> get_matching_species(const string & partial_name) const;
-  
 };
 
-#endif /* Tree_Species_H */
+#endif /* Tree_Species_H_ */
+
+
+
+
+
+
+
+
 
