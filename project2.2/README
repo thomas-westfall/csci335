@@ -1,4 +1,6 @@
-Usage: ./main input_file command_file
+Usage: 
+make
+./main input_file command_file
 
 Log:
 5/1/19
