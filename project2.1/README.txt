@@ -1,3 +1,4 @@
+Guidelines found in: project2_phase1.pdf
 Usage:
 g++ -Wall -g -o main main.cpp hash_table.cpp _hash_item.cpp
 ./main textfile
