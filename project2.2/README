@@ -1,0 +1,40 @@
+Usage: ./main input_file command_file
+
+Log:
+5/1/19
+Implemented stubs of subway_portal, subway_station, and subway_system. Makefile builds the executable.
+
+5/2/19
+Implemented subway_portal.
+
+5/3/19
+Implemented subway_station.
+
+5/4/19
+Started implementing subawy_system. Started with implementing add_portal and form_stations, which are called regardless of command_File's contents.
+
+5/6/19
+Finished add_portal, continued work on form_stations. Also implemented findstation and unionstations (adapted from chapter 8 notes).
+
+5/7/19
+Finished form_stations. Listallstations gives correct output. Started work on listallportals.
+
+5/8/19
+Finished listallportals, works correctly. Started work on nearest_routes and nearest_portal.
+
+5/9/19
+Finished nearest_portal, works correctly. Working on nearest_routes.
+
+5/10/19
+Finished implementing SubwaySystem and documenting code.
+
+Notes:
+The project took around 40 hours to complete (excluding the first part). Most of the time spent was towards subway_system's implementation. 
+
+The methods findstation and unionstations were adapted from chapter 8's find and union method implementations.
+
+nearest_portal finds the true closest portal from the given point. So it's output is different from two of the output files on eniac.
+
+list_all_stations has a duplicate, but I am pretty sure its not a bug. More detail above its implementation.
+
+listroutes lists some of the routes stations in a different order than eniacs outputfiles, though the same stations are printed regardless. 
